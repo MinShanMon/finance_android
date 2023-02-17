@@ -2,6 +2,7 @@ package com.team3.personalfinanceapp.statements;
 
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
@@ -28,7 +29,6 @@ public class LinkBankActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_link_bank);
 
-
         banks = getResources().getStringArray(R.array.bank_list);
         bankList = findViewById(R.id.bank_dropdown);
         bankList.setAdapter(new ArrayAdapter<>(this, R.layout.enquiry_item, banks));
@@ -38,9 +38,7 @@ public class LinkBankActivity extends AppCompatActivity {
 
         Button submitBtn = findViewById(R.id.submit);
         submitBtn.setOnClickListener( c -> {
-            if (!submitBank()) {
-                Toast.makeText(this, "You have already linked this bank account", Toast.LENGTH_LONG).show();
-            } else {
+            if (submitBank()) {
                 finish();
             }
         });
@@ -52,14 +50,24 @@ public class LinkBankActivity extends AppCompatActivity {
     private boolean submitBank() {
 
         SharedPreferences bankPref = getSharedPreferences("user_banklist", MODE_PRIVATE);
-        Set<String> userBankList = new HashSet<>();
+
+        Set<String> userBankList = new HashSet<>(bankPref.getStringSet(userId, new HashSet<>()));
         SharedPreferences.Editor editor = bankPref.edit();
 
         String bankName = bankList.getText().toString();
         TextView accountNoField = findViewById(R.id.bank_account_num);
         String accountNo = accountNoField.getText().toString();
+        if (accountNo.isEmpty()) {
+            TextView accountError = findViewById(R.id.account_num_error);
+            accountError.setVisibility(View.VISIBLE);
+            return false;
+        } else {
+            TextView accountError = findViewById(R.id.account_num_error);
+            accountError.setVisibility(View.GONE);
+        }
         String bankAccountNo = bankName + ":" + accountNo;
         if (!userBankList.add(bankAccountNo)) {
+            Toast.makeText(this, "You have already linked this bank account", Toast.LENGTH_LONG).show();
             return false;
         }
         editor.putStringSet(userId, userBankList);

@@ -178,7 +178,7 @@ public class TransactionsFragment extends Fragment {
         String[] bankAccts = bankAccountSet.toArray(new String[0]);
         String[] bankDetail = bankAccts[0].split(":");
 
-        if (bankDetail.length == 0) {
+        if (bankDetail.length <= 1 ) {
             balanceTextView.setText("No bank account linked");
             balanceTextView.setTextSize(30);
             return;

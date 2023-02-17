@@ -91,6 +91,14 @@
         </com.google.android.material.textfield.TextInputLayout>
 
         <TextView
+            android:id="@+id/account_num_error"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Please enter an account number"
+            android:textColor="@color/red"
+            android:visibility="gone"/>
+
+        <TextView
             android:id="@+id/bankacct_num_error"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

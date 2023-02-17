@@ -166,17 +166,16 @@ public class TransactionsFragment extends Fragment {
         TextView balanceTextView = view.findViewById(R.id.available_balance_amt);
         BankAPIInterface bankAPIInterface = APIClient.getBankClient().create(BankAPIInterface.class);
         SharedPreferences bankPref = this.getActivity().getSharedPreferences("user_banklist", MODE_PRIVATE);
-        Set<String> bankAccountSet =
-                bankPref.getStringSet(String.valueOf(pref.getInt("userid", 0)), new HashSet<>());
+        String bankAccount =
+                bankPref.getString(String.valueOf(pref.getInt("userid", 0)), "");
 
-        if (bankAccountSet.isEmpty()) {
+        if (bankAccount.isEmpty()) {
             balanceTextView.setText("No bank account linked");
             balanceTextView.setTextSize(30);
             return;
         }
 
-        String[] bankAccts = bankAccountSet.toArray(new String[0]);
-        String[] bankDetail = bankAccts[0].split(":");
+        String[] bankDetail = bankAccount.split(":");
 
         if (bankDetail.length <= 1 ) {
             balanceTextView.setText("No bank account linked");

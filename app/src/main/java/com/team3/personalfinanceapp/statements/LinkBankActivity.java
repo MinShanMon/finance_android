@@ -23,6 +23,9 @@ public class LinkBankActivity extends AppCompatActivity {
     private String userId;
 
     private AutoCompleteTextView bankList;
+    private SharedPreferences bankPref;
+    private String userBank;
+    private TextView accountNoField;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,6 +36,7 @@ public class LinkBankActivity extends AppCompatActivity {
         bankList = findViewById(R.id.bank_dropdown);
         bankList.setAdapter(new ArrayAdapter<>(this, R.layout.enquiry_item, banks));
 
+        accountNoField = findViewById(R.id.bank_account_num);
         ImageView backArrow = findViewById(R.id.img_backArrow);
         backArrow.setOnClickListener( c -> finish());
 
@@ -45,32 +49,32 @@ public class LinkBankActivity extends AppCompatActivity {
 
         SharedPreferences pref = getSharedPreferences("user_credentials", MODE_PRIVATE);
         userId = String.valueOf(pref.getInt("userid", 0));
+        bankPref = getSharedPreferences("user_banklist", MODE_PRIVATE);
+        userBank = bankPref.getString(userId, "");
+        if (!userBank.isEmpty()) {
+            String[] details = userBank.split(":");
+            bankList.setText(banks[0]);
+            accountNoField.setText(details[1]);
+        }
+
     }
 
     private boolean submitBank() {
 
-        SharedPreferences bankPref = getSharedPreferences("user_banklist", MODE_PRIVATE);
-
-        Set<String> userBankList = new HashSet<>(bankPref.getStringSet(userId, new HashSet<>()));
         SharedPreferences.Editor editor = bankPref.edit();
 
         String bankName = bankList.getText().toString();
-        TextView accountNoField = findViewById(R.id.bank_account_num);
+
         String accountNo = accountNoField.getText().toString();
+        TextView accountError = findViewById(R.id.account_num_error);
         if (accountNo.isEmpty()) {
-            TextView accountError = findViewById(R.id.account_num_error);
             accountError.setVisibility(View.VISIBLE);
             return false;
         } else {
-            TextView accountError = findViewById(R.id.account_num_error);
             accountError.setVisibility(View.GONE);
         }
         String bankAccountNo = bankName + ":" + accountNo;
-        if (!userBankList.add(bankAccountNo)) {
-            Toast.makeText(this, "You have already linked this bank account", Toast.LENGTH_LONG).show();
-            return false;
-        }
-        editor.putStringSet(userId, userBankList);
+        editor.putString(userId, bankAccountNo);
         editor.commit();
         return true;
     }

@@ -229,7 +229,7 @@ public class ForecastPortfolioFragment extends Fragment{
             public void onClick(View v) {
                 int a1=Integer.parseInt (amount1.getText().toString());
                 if (a1>fixedDepositsList.get(0).getMinAmount()){
-                    amount1.setText(Integer.toString(a1-1));
+                    amount1.setText(Integer.toString(a1-1000));
                     amounts.set(0,Integer.parseInt (amount1.getText().toString()));
                     setLineChartData(amounts,periods);
                 }
@@ -241,7 +241,7 @@ public class ForecastPortfolioFragment extends Fragment{
                 int a1=Integer.parseInt (amount1.getText().toString());
                 if (a1<fixedDepositsList.get(0).getMaxAmount()){
                     System.out.println(a1);
-                    amount1.setText(Integer.toString(a1+1));
+                    amount1.setText(Integer.toString(a1+1000));
                     amounts.set(0,Integer.parseInt (amount1.getText().toString()));
                     setLineChartData(amounts,periods);
                 }
@@ -252,7 +252,7 @@ public class ForecastPortfolioFragment extends Fragment{
             public void onClick(View v) {
                 int a2=Integer.parseInt (amount2.getText().toString());
                 if (a2>fixedDepositsList.get(1).getMinAmount()){
-                    amount2.setText(Integer.toString(a2-1));
+                    amount2.setText(Integer.toString(a2-1000));
                     amounts.set(1,Integer.parseInt (amount2.getText().toString()));
                     setLineChartData(amounts,periods);
                 }
@@ -264,7 +264,7 @@ public class ForecastPortfolioFragment extends Fragment{
                 int a2=Integer.parseInt (amount2.getText().toString());
                 if (a2<fixedDepositsList.get(1).getMaxAmount()){
                     System.out.println(a2);
-                    amount2.setText(Integer.toString(a2+1));
+                    amount2.setText(Integer.toString(a2+1000));
                     amounts.set(1,Integer.parseInt (amount2.getText().toString()));
                     setLineChartData(amounts,periods);
                 }
@@ -273,6 +273,7 @@ public class ForecastPortfolioFragment extends Fragment{
         saveBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 String filename = UUID.randomUUID().toString();
                 lineChart.saveToGallery(filename,50);
                 Toast.makeText(getContext(), "Image saved successfully", Toast.LENGTH_SHORT).show();

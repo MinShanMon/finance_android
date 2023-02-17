@@ -175,6 +175,9 @@ public class InsightsViewPagerFragment extends Fragment {
     }
 
     private void setPieChartAndCategorySpending() {
+        if (!this.isAdded()) {
+            return;
+        }
         InsightsViewPagerAdapter insightsPagerAdapter = new InsightsViewPagerAdapter(InsightsViewPagerFragment.this, transactions);
         viewPager.setAdapter(insightsPagerAdapter);
         viewPager.setSaveEnabled(false);

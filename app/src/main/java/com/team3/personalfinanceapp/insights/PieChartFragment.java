@@ -112,7 +112,7 @@ public class PieChartFragment extends Fragment {
         }
 
         PieDataSet dataSet = new PieDataSet(entries, "");
-        dataSet.setColors(new int[]{Color.parseColor("#B74Bff"), Color.parseColor("#7D77EE"), Color.parseColor("#FF754B")});
+        dataSet.setColors(Color.parseColor("#B74Bff"), Color.parseColor("#7D77EE"), Color.parseColor("#FF754B"));
 
         PieData data = new PieData(dataSet);
         data.setValueFormatter(new PercentFormatter(pieChart));
@@ -133,7 +133,7 @@ public class PieChartFragment extends Fragment {
                     .filter(t -> !t.getCategory().equalsIgnoreCase("income"))
                     .filter(t -> t.getDate().withDayOfMonth(1).equals(LocalDate.now().withDayOfMonth(1)))
                     .mapToDouble(Transaction::getAmount)
-                    .reduce(Double::sum).orElse((double) 0);
+                    .reduce(Double::sum).orElse(0);
         }
         pieChart.setCenterText("This Month\n$" + String.format(getString(R.string.money_format), Math.abs(sum)));
     }

@@ -46,9 +46,6 @@ public class StockDetailFragment extends Fragment {
         TransitionInflater tInflater = TransitionInflater.from(requireContext());
         setEnterTransition(tInflater.inflateTransition(R.transition.slide_right));
 
-//        bundle.putString("symbol", stockList.get(position).getSymbol());
-//        bundle.putString("exchange", stockList.get(position).getExchange());
-
         String symbol = getArguments().getString("symbol");
         String exchange = getArguments().getString("exchange");
 

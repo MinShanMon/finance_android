@@ -38,7 +38,7 @@ public class ProductsFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View v =  inflater.inflate(R.layout.fragment_products, container, false);
+        View v = inflater.inflate(R.layout.fragment_products, container, false);
 
         TransitionInflater tInflater = TransitionInflater.from(requireContext());
         setEnterTransition(tInflater.inflateTransition(R.transition.slide_right));
@@ -77,10 +77,10 @@ public class ProductsFragment extends Fragment {
             }
         });
         setupOnBackPressed();
-        return  v;
+        return v;
     }
 
-    private void setupOnBackPressed(){
+    private void setupOnBackPressed() {
         requireActivity().getOnBackPressedDispatcher().addCallback(new OnBackPressedCallback(true) {
             @Override
             public void handleOnBackPressed() {
@@ -97,7 +97,10 @@ public class ProductsFragment extends Fragment {
         listener = mainActivity.getHomeFragment();
         homeNav = (HomeNav) context;
     }
-    private void homeNav(){homeNav.homeClicked();}
+
+    private void homeNav() {
+        homeNav.homeClicked();
+    }
 
     private void commitTransaction(Fragment fragment) {
         FragmentManager fm = getParentFragmentManager();
@@ -105,9 +108,6 @@ public class ProductsFragment extends Fragment {
         trans.replace(R.id.fragment_container, fragment);
         trans.commit();
     }
-
-
-
 
 
 }

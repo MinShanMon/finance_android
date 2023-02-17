@@ -39,10 +39,12 @@ public class StockFragment extends Fragment {
     public StockFragment() {
         // Required empty public constructor
     }
+
     ProgressBar progressBar;
     ProductsFragment listener;
 
-    List<String> validSotck = Arrays.asList("D05","SVI","511880","BOTHE","INFY","005930","GMEXICOB","TKMIT","EBS");
+    List<String> validSotck = Arrays.asList("D05", "SVI", "511880", "BOTHE", "INFY", "005930", "GMEXICOB", "TKMIT", "EBS");
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -87,23 +89,22 @@ public class StockFragment extends Fragment {
                     });
 
 
-
                 }
 
             }
 
             @Override
             public void onFailure(Call<StockData> call, Throwable t) {
-                Toast.makeText(getContext(),"failur",Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), "failur", Toast.LENGTH_SHORT).show();
             }
         });
         setupOnBackPressed();
-        return  v;
+        return v;
 //
     }
 
 
-    private void setupOnBackPressed(){
+    private void setupOnBackPressed() {
         requireActivity().getOnBackPressedDispatcher().addCallback(new OnBackPressedCallback(true) {
             @Override
             public void handleOnBackPressed() {

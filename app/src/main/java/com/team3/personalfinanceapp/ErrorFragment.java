@@ -9,17 +9,6 @@ import android.view.View;
 import android.view.ViewGroup;
 
 
-import com.team3.personalfinanceapp.R;
-
-//public class InsightsFragment extends Fragment {
-
-import com.team3.personalfinanceapp.R;
-
-
-//public class InsightsFragment extends Fragment {
-//>>>>>>> oscar:app/src/main/java/com/team3/personalfinanceapp/InsightsFragment.java
-
-
 public class ErrorFragment extends Fragment {
 
     public ErrorFragment() {

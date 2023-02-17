@@ -46,9 +46,11 @@ import retrofit2.Response;
 public class BankFragment extends Fragment {
 
     SharedPreferences pref;
+
     public BankFragment() {
         // Required empty public constructor
     }
+
     private List<FixedDeposits> fixedList;
 
     ProgressBar progressBar;
@@ -70,37 +72,33 @@ public class BankFragment extends Fragment {
         progressBar.setVisibility(View.VISIBLE);
 
 
-
-
         APIclient api = new APIclient();
 
         fixedDeposistsServics fs = api.getRetrofit().create(fixedDeposistsServics.class);
-        Call<List<FixedDeposits>> call = fs.getAll("Bearer "+ pref.getString("token", ""));
+        Call<List<FixedDeposits>> call = fs.getAll("Bearer " + pref.getString("token", ""));
 
         call.enqueue(new Callback<List<FixedDeposits>>() {
             @Override
             public void onResponse(Call<List<FixedDeposits>> call, Response<List<FixedDeposits>> response) {
-                if(!response.isSuccessful()){
+                if (!response.isSuccessful()) {
                     System.out.println("unsuccessful");
-                    Toast.makeText(getContext(),"unsuccessful",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), "unsuccessful", Toast.LENGTH_SHORT).show();
                     return;
                 }
-
 
 
                 Button comparebutton = v.findViewById(R.id.compareitem);
 
                 SharedPreferences pref = getContext().getSharedPreferences("bankIdList", getContext().MODE_PRIVATE);
-                SharedPreferences.Editor editor = pref.edit();
 
                 comparebutton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         Map<String, Long> fixedIdMap = (Map<String, Long>) pref.getAll();
 
-                        if(fixedIdMap.size() != 2){
-                            Toast.makeText(getContext(),"You need to choose two items to compare",Toast.LENGTH_SHORT).show();
-                        }else{
+                        if (fixedIdMap.size() != 2) {
+                            Toast.makeText(getContext(), "You need to choose two items to compare", Toast.LENGTH_SHORT).show();
+                        } else {
                             CompareFragment compareFragment = new CompareFragment();
                             commitTransaction(compareFragment);
                         }
@@ -108,19 +106,10 @@ public class BankFragment extends Fragment {
                 });
 
 
-
-
-
-
-
-
-
-
-
-        progressBar.setVisibility(View.INVISIBLE);
+                progressBar.setVisibility(View.INVISIBLE);
 
                 pref.edit().clear().commit();
-                fixedList= response.body();
+                fixedList = response.body();
                 ListView listView = v.findViewById(R.id.listView);
                 if (listView != null) {
                     listView.setAdapter(new ListAdapter(getContext(), fixedList));
@@ -139,13 +128,12 @@ public class BankFragment extends Fragment {
                     });
 
 
-
                 }
             }
 
             @Override
             public void onFailure(Call<List<FixedDeposits>> call, Throwable t) {
-                Toast.makeText(getContext(),"failure",Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), "failure", Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -153,7 +141,7 @@ public class BankFragment extends Fragment {
         return v;
     }
 
-    private void setupOnBackPressed(){
+    private void setupOnBackPressed() {
         requireActivity().getOnBackPressedDispatcher().addCallback(new OnBackPressedCallback(true) {
             @Override
             public void handleOnBackPressed() {
@@ -174,14 +162,7 @@ public class BankFragment extends Fragment {
         FragmentManager fm = getParentFragmentManager();
         FragmentTransaction trans = fm.beginTransaction();
         trans.replace(R.id.fragment_container, fragment);
-//        trans.addToBackStack(null);
         trans.commit();
     }
 
 }
-//
-//        ListView listView = v.findViewById(R.id.listView);
-//        if (listView != null) {
-//        listView.setAdapter(new ListAdapter(getActivity(), fixedList));
-//
-//        }

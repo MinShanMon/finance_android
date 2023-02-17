@@ -31,8 +31,6 @@ public class WebViewFragment extends Fragment {
     public WebViewFragment() {
         // Required empty public constructor
     }
-    private String url;
-    private WebView webView;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -44,7 +42,7 @@ public class WebViewFragment extends Fragment {
         setEnterTransition(tInflater.inflateTransition(R.transition.slide_right));
         String url = getArguments().getString("link");
 
-        webView = v.findViewById(R.id.web_view);
+        WebView webView = v.findViewById(R.id.web_view);
         webView.setWebViewClient(new WebViewClient());
         webView.getSettings().setJavaScriptEnabled(true);
         webView.loadUrl(url);

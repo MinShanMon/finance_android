@@ -1,14 +1,11 @@
 package com.team3.personalfinanceapp.utils;
 
-import com.google.gson.JsonObject;
 import com.team3.personalfinanceapp.model.Enquiry;
 import com.team3.personalfinanceapp.model.RegisteredUsers;
-import com.team3.personalfinanceapp.model.Status;
 import com.team3.personalfinanceapp.model.Token;
 
 
 
-import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.Field;

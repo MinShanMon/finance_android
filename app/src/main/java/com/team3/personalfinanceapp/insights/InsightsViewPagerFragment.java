@@ -68,9 +68,6 @@ public class InsightsViewPagerFragment extends Fragment {
     private TabLayoutMediator tabLayoutMediator;
     private HomeNav homeNav;
     private HomeFragment listener;
-    private PieChartFragment pieChartFragment;
-    private CategorySpendFragment categorySpendFragment;
-
 
     public InsightsViewPagerFragment() {
         // Required empty public constructor
@@ -238,12 +235,6 @@ public class InsightsViewPagerFragment extends Fragment {
         XAxis xAxis = lineChart.getXAxis();
         xAxis.setGranularity(1f);
         xAxis.setValueFormatter(formatter);
-
-    }
-
-    @Override
-    public void onStart(){
-        super.onStart();
 
     }
 

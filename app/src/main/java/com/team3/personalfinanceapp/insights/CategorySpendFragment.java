@@ -43,7 +43,6 @@ public class CategorySpendFragment extends Fragment {
 
     private List<Transaction> transactions;
 
-    private String moneyFormat;
 
     public CategorySpendFragment() {
         // Required empty public constructor
@@ -65,7 +64,6 @@ public class CategorySpendFragment extends Fragment {
     public void onStart() {
         super.onStart();
         View view = getView();
-        moneyFormat = getString(R.string.money_format);
         createSpendingByCategory(view);
     }
 
@@ -111,7 +109,7 @@ public class CategorySpendFragment extends Fragment {
         entries.add(new BarEntry(0f, prevMonthSpendingMap.getOrDefault(category, Double.valueOf(0)).floatValue()));
         entries.add(new BarEntry(1f, currMonthSpendingMap.getOrDefault(category, Double.valueOf(0)).floatValue()));
         BarDataSet dataSet = new BarDataSet(entries, category + " Spending");
-        dataSet.setColors(new int[] {Color.LTGRAY, Color.parseColor("#FFA500")});
+        dataSet.setColors(Color.LTGRAY, Color.parseColor("#FFA500"));
         BarData data = new BarData(dataSet);
 
         barChart.setData(data);
@@ -136,7 +134,7 @@ public class CategorySpendFragment extends Fragment {
         xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
         String currMonthStr = LocalDate.now().getMonth().toString().substring(0, 3);
         String prevMonthStr = LocalDate.now().getMonth().minus(1).toString().substring(0, 3);
-        String[] labels = new String[] {prevMonthStr, currMonthStr};
+        String[] labels = new String[]{prevMonthStr, currMonthStr};
         xAxis.setValueFormatter(new ValueFormatter() {
             @Override
             public String getAxisLabel(float value, AxisBase axis) {

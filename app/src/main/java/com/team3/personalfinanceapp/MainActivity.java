@@ -11,11 +11,6 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
-import android.os.Bundle;
-import android.view.MenuItem;
-import android.widget.Button;
-import android.widget.FrameLayout;
-
 import com.facebook.AccessToken;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
@@ -96,8 +91,6 @@ public class MainActivity extends AppCompatActivity implements NavigationBarView
                     editor.commit();
                     return;
                 }
-    //                startActivity(new Intent(LoginActivity.this, MainActivity.class));
-    //                finish();
             }
             @Override
             public void onFailure(Call<Token> call, Throwable t) {

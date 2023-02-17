@@ -53,14 +53,17 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class ForecastPortfolioFragment extends Fragment{
+public class ForecastPortfolioFragment extends Fragment {
     SharedPreferences prefs;
+
     public ForecastPortfolioFragment() {
     }
+
     private LineChart lineChart;
     private List<FixedDeposits> fixedDepositsList = new ArrayList<FixedDeposits>();
     List<Integer> amounts = new ArrayList<>();
     List<Integer> periods = new ArrayList<>();
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -83,7 +86,7 @@ public class ForecastPortfolioFragment extends Fragment{
         fixedDeposistsServics fs = api.getRetrofit().create(fixedDeposistsServics.class);
         for (Long id : IdList) {
             if (id != null) {
-                Call<FixedDeposits> call = fs.getById(id+1, "Bearer "+ prefs.getString("token", ""));
+                Call<FixedDeposits> call = fs.getById(id + 1, "Bearer " + prefs.getString("token", ""));
                 call.enqueue(new Callback<FixedDeposits>() {
                     @SuppressLint("SetTextI18n")
                     @Override
@@ -94,22 +97,23 @@ public class ForecastPortfolioFragment extends Fragment{
                         }
                         FixedDeposits result = response.body();
                         fixedDepositsList.add(result);
-                        if (fixedDepositsList.size()==1) {
+                        if (fixedDepositsList.size() == 1) {
                             amount1.setText(Integer.toString(result.getMinAmount()));
                             period1.setText(Integer.toString(result.getTenure()));
-                            amounts.add(Integer.parseInt (amount1.getText().toString()));
-                            periods.add(Integer.parseInt (period1.getText().toString()));
-                            System.out.println("p1:"+periods.get(0));
+                            amounts.add(Integer.parseInt(amount1.getText().toString()));
+                            periods.add(Integer.parseInt(period1.getText().toString()));
+                            System.out.println("p1:" + periods.get(0));
                         }
-                        if (fixedDepositsList.size()==2) {
+                        if (fixedDepositsList.size() == 2) {
                             amount2.setText(Integer.toString(result.getMinAmount()));
                             period2.setText(Integer.toString(result.getTenure()));
-                            amounts.add(Integer.parseInt (amount2.getText().toString()));
-                            periods.add(Integer.parseInt (period2.getText().toString()));
-                            System.out.println("p2:"+periods.get(1));
-                            initLineChart(amounts,periods);
+                            amounts.add(Integer.parseInt(amount2.getText().toString()));
+                            periods.add(Integer.parseInt(period2.getText().toString()));
+                            System.out.println("p2:" + periods.get(1));
+                            initLineChart(amounts, periods);
                         }
                     }
+
                     @Override
                     public void onFailure(Call<FixedDeposits> call, Throwable t) {
                         Toast.makeText(getContext(), "unsuccessful", Toast.LENGTH_SHORT).show();
@@ -130,7 +134,7 @@ public class ForecastPortfolioFragment extends Fragment{
         return v;
     }
 
-    private void setupOnBackPressed(){
+    private void setupOnBackPressed() {
         requireActivity().getOnBackPressedDispatcher().addCallback(new OnBackPressedCallback(true) {
             @Override
             public void handleOnBackPressed() {
@@ -149,66 +153,71 @@ public class ForecastPortfolioFragment extends Fragment{
     }
 
 
-
     @Override
-    public void onViewCreated(@NonNull View v, @Nullable Bundle savedInstanceState)   {
+    public void onViewCreated(@NonNull View v, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(v, savedInstanceState);
         lineChart = v.findViewById(R.id.lineChart);
-        ImageButton addAmountBtn1=v.findViewById(R.id.add_amount1);
-        ImageButton addAmountBtn2=v.findViewById(R.id.add_amount2);
-        ImageButton reduceAmountBtn1=v.findViewById(R.id.reduce_amount1);
-        ImageButton reduceAmountBtn2=v.findViewById(R.id.reduce_amount2);
+        ImageButton addAmountBtn1 = v.findViewById(R.id.add_amount1);
+        ImageButton addAmountBtn2 = v.findViewById(R.id.add_amount2);
+        ImageButton reduceAmountBtn1 = v.findViewById(R.id.reduce_amount1);
+        ImageButton reduceAmountBtn2 = v.findViewById(R.id.reduce_amount2);
         EditText amount1 = v.findViewById(R.id.amount1);
         EditText amount2 = v.findViewById(R.id.amount2);
         amount1.addTextChangedListener(new TextWatcher() {
-                private CharSequence word;
-                @Override
-                public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-                    word = s;
-                }
-                @Override
-                public void onTextChanged(CharSequence s, int start, int before, int count) {
-                }
-                @Override
-                public void afterTextChanged(Editable s) {
-                    if (amounts.size() > 0) {
-                        try {
-                            if(word.length()==0||Integer.parseInt(word.toString())<fixedDepositsList.get(0).getMinAmount()) {
-                                Toast.makeText(getContext(), "Can not less than" + fixedDepositsList.get(0).getMinAmount(), Toast.LENGTH_SHORT).show();
-                                return;
-                            }
-                            if(Integer.parseInt(word.toString())>fixedDepositsList.get(0).getMaxAmount()) {
-
-                                Toast.makeText(getContext(), "Can not more than" + fixedDepositsList.get(0).getMaxAmount(), Toast.LENGTH_SHORT).show();
-                                return;
-                            }
-                            amounts.set(0, Integer.parseInt(amount1.getText().toString()));
-                            setLineChartData(amounts, periods);
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                            Toast.makeText(getContext(), "Invalid input", Toast.LENGTH_SHORT).show();
-                        }
-                    }
-                }
-            });
-        amount2.addTextChangedListener(new TextWatcher() {
             private CharSequence word;
+
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
                 word = s;
             }
+
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
             }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                if (amounts.size() > 0) {
+                    try {
+                        if (word.length() == 0 || Integer.parseInt(word.toString()) < fixedDepositsList.get(0).getMinAmount()) {
+                            Toast.makeText(getContext(), "Can not less than" + fixedDepositsList.get(0).getMinAmount(), Toast.LENGTH_SHORT).show();
+                            return;
+                        }
+                        if (Integer.parseInt(word.toString()) > fixedDepositsList.get(0).getMaxAmount()) {
+
+                            Toast.makeText(getContext(), "Can not more than" + fixedDepositsList.get(0).getMaxAmount(), Toast.LENGTH_SHORT).show();
+                            return;
+                        }
+                        amounts.set(0, Integer.parseInt(amount1.getText().toString()));
+                        setLineChartData(amounts, periods);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                        Toast.makeText(getContext(), "Invalid input", Toast.LENGTH_SHORT).show();
+                    }
+                }
+            }
+        });
+        amount2.addTextChangedListener(new TextWatcher() {
+            private CharSequence word;
+
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                word = s;
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+            }
+
             @Override
             public void afterTextChanged(Editable s) {
                 if (amounts.size() > 1) {
                     try {
-                        if(word.length()==0||Integer.parseInt(word.toString())<fixedDepositsList.get(1).getMinAmount()) {
+                        if (word.length() == 0 || Integer.parseInt(word.toString()) < fixedDepositsList.get(1).getMinAmount()) {
                             Toast.makeText(getContext(), "Amount can not less than" + fixedDepositsList.get(1).getMinAmount(), Toast.LENGTH_SHORT).show();
                             return;
                         }
-                        if(Integer.parseInt(word.toString())>fixedDepositsList.get(1).getMaxAmount()) {
+                        if (Integer.parseInt(word.toString()) > fixedDepositsList.get(1).getMaxAmount()) {
 
                             Toast.makeText(getContext(), "Amount can not more than" + fixedDepositsList.get(1).getMaxAmount(), Toast.LENGTH_SHORT).show();
                             return;
@@ -227,46 +236,46 @@ public class ForecastPortfolioFragment extends Fragment{
         reduceAmountBtn1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                int a1=Integer.parseInt (amount1.getText().toString());
-                if (a1>fixedDepositsList.get(0).getMinAmount()){
-                    amount1.setText(Integer.toString(a1-1000));
-                    amounts.set(0,Integer.parseInt (amount1.getText().toString()));
-                    setLineChartData(amounts,periods);
+                int a1 = Integer.parseInt(amount1.getText().toString());
+                if (a1 > fixedDepositsList.get(0).getMinAmount()) {
+                    amount1.setText(Integer.toString(a1 - 1000));
+                    amounts.set(0, Integer.parseInt(amount1.getText().toString()));
+                    setLineChartData(amounts, periods);
                 }
             }
         });
         addAmountBtn1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                int a1=Integer.parseInt (amount1.getText().toString());
-                if (a1<fixedDepositsList.get(0).getMaxAmount()){
+                int a1 = Integer.parseInt(amount1.getText().toString());
+                if (a1 < fixedDepositsList.get(0).getMaxAmount()) {
                     System.out.println(a1);
-                    amount1.setText(Integer.toString(a1+1000));
-                    amounts.set(0,Integer.parseInt (amount1.getText().toString()));
-                    setLineChartData(amounts,periods);
+                    amount1.setText(Integer.toString(a1 + 1000));
+                    amounts.set(0, Integer.parseInt(amount1.getText().toString()));
+                    setLineChartData(amounts, periods);
                 }
             }
         });
         reduceAmountBtn2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                int a2=Integer.parseInt (amount2.getText().toString());
-                if (a2>fixedDepositsList.get(1).getMinAmount()){
-                    amount2.setText(Integer.toString(a2-1000));
-                    amounts.set(1,Integer.parseInt (amount2.getText().toString()));
-                    setLineChartData(amounts,periods);
+                int a2 = Integer.parseInt(amount2.getText().toString());
+                if (a2 > fixedDepositsList.get(1).getMinAmount()) {
+                    amount2.setText(Integer.toString(a2 - 1000));
+                    amounts.set(1, Integer.parseInt(amount2.getText().toString()));
+                    setLineChartData(amounts, periods);
                 }
             }
         });
         addAmountBtn2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                int a2=Integer.parseInt (amount2.getText().toString());
-                if (a2<fixedDepositsList.get(1).getMaxAmount()){
+                int a2 = Integer.parseInt(amount2.getText().toString());
+                if (a2 < fixedDepositsList.get(1).getMaxAmount()) {
                     System.out.println(a2);
-                    amount2.setText(Integer.toString(a2+1000));
-                    amounts.set(1,Integer.parseInt (amount2.getText().toString()));
-                    setLineChartData(amounts,periods);
+                    amount2.setText(Integer.toString(a2 + 1000));
+                    amounts.set(1, Integer.parseInt(amount2.getText().toString()));
+                    setLineChartData(amounts, periods);
                 }
             }
         });
@@ -275,13 +284,14 @@ public class ForecastPortfolioFragment extends Fragment{
             public void onClick(View v) {
 
                 String filename = UUID.randomUUID().toString();
-                lineChart.saveToGallery(filename,50);
+                lineChart.saveToGallery(filename, 50);
                 Toast.makeText(getContext(), "Image saved successfully", Toast.LENGTH_SHORT).show();
             }
         });
 
     }
-    private void initLineChart(List<Integer> amounts,List<Integer> periods) {
+
+    private void initLineChart(List<Integer> amounts, List<Integer> periods) {
 //        lineChart.setOnChartValueSelectedListener(this);
         lineChart.getDescription().setEnabled(false);
         lineChart.setBackgroundColor(Color.WHITE);
@@ -309,32 +319,31 @@ public class ForecastPortfolioFragment extends Fragment{
 
         lineChart.getAxisRight().setEnabled(false);
 
-        setLineChartData(amounts,periods);
+        setLineChartData(amounts, periods);
     }
-    private void setLineChartData(List<Integer> amounts,List<Integer> periods) {
+
+    private void setLineChartData(List<Integer> amounts, List<Integer> periods) {
 
         List<Entry> valsProd1 = new ArrayList<>();
         List<Entry> valsProd2 = new ArrayList<>();
         List<Entry> total = new ArrayList<>();
         Integer max = Collections.max(periods);
-        for(int i=0;i<=max;i++){
-            if(i<periods.get(0)){
-                valsProd1.add(new Entry(i,-amounts.get(0)));
-            }
-            else
-                valsProd1.add(new Entry(i, (float) (amounts.get(0)*(1+fixedDepositsList.get(0).getInterestRate()))));
+        for (int i = 0; i <= max; i++) {
+            if (i < periods.get(0)) {
+                valsProd1.add(new Entry(i, -amounts.get(0)));
+            } else
+                valsProd1.add(new Entry(i, (float) (amounts.get(0) * (1 + fixedDepositsList.get(0).getInterestRate()))));
         }
-        for(int i=0;i<=max;i++){
-            if(i<periods.get(1)){
-                valsProd2.add(new Entry(i,-amounts.get(1)));
-            }
-            else
-                valsProd2.add(new Entry(i, (float) (amounts.get(1)*(1+fixedDepositsList.get(1).getInterestRate()))));
+        for (int i = 0; i <= max; i++) {
+            if (i < periods.get(1)) {
+                valsProd2.add(new Entry(i, -amounts.get(1)));
+            } else
+                valsProd2.add(new Entry(i, (float) (amounts.get(1) * (1 + fixedDepositsList.get(1).getInterestRate()))));
         }
 
 
-        for(int i=0;i<=max;i++){
-            total.add(new Entry(i, valsProd1.get(i).getY()+valsProd2.get(i).getY()));
+        for (int i = 0; i <= max; i++) {
+            total.add(new Entry(i, valsProd1.get(i).getY() + valsProd2.get(i).getY()));
         }
 
 

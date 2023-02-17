@@ -42,13 +42,14 @@ import retrofit2.Response;
 public class BankDetailFragment extends Fragment {
 
     SharedPreferences pref;
+
     public BankDetailFragment() {
         // Required empty public constructor
     }
+
     private List<FixedDeposits> fixedList;
 
     BankFragment bankFragment = new BankFragment();
-
 
 
     @Override
@@ -65,30 +66,26 @@ public class BankDetailFragment extends Fragment {
         int id = getArguments().getInt("deposits");
 
 
-
         getActivity().setTitle("fixed deposists detail");
-
-
-
 
 
         APIclient api = new APIclient();
 
         fixedDeposistsServics fs = api.getRetrofit().create(fixedDeposistsServics.class);
-        Call<List<FixedDeposits>> call = fs.getAll("Bearer "+ pref.getString("token", ""));
+        Call<List<FixedDeposits>> call = fs.getAll("Bearer " + pref.getString("token", ""));
         System.out.println(call.request());
         call.enqueue(new Callback<List<FixedDeposits>>() {
 
             @Override
             public void onResponse(Call<List<FixedDeposits>> call, Response<List<FixedDeposits>> response) {
 
-                if(!response.isSuccessful()){
-                    Toast.makeText(getContext(),"unsuccressful",Toast.LENGTH_SHORT).show();
+                if (!response.isSuccessful()) {
+                    Toast.makeText(getContext(), "unsuccressful", Toast.LENGTH_SHORT).show();
                     return;
                 }
 
-                fixedList= response.body();
-                FixedDeposits item =fixedList.get(id);
+                fixedList = response.body();
+                FixedDeposits item = fixedList.get(id);
 
                 TextView bank = v.findViewById(R.id.bank);
                 TextView mtenure = v.findViewById(R.id.tenure);
@@ -99,24 +96,18 @@ public class BankDetailFragment extends Fragment {
 
                 mtenure.setText(Integer.toString(item.getTenure()) + " Months");
                 bank.setText(item.getBank().getBankName().toUpperCase(Locale.ROOT));
-                min.setText(Integer.toString(item.getMinAmount()) +" SGD");
-                max.setText(Integer.toString(item.getMaxAmount()) +" SGD");
-                interest.setText(Double.toString(item.getInterestRate()) );
-                String[] dateDate  = item.getUpdateDate().split("-");
+                min.setText(Integer.toString(item.getMinAmount()) + " SGD");
+                max.setText(Integer.toString(item.getMaxAmount()) + " SGD");
+                interest.setText(Double.toString(item.getInterestRate()));
+                String[] dateDate = item.getUpdateDate().split("-");
                 date.setText(dateDate[0] + " - " + dateDate[1]);
-
-                List<Long> fixedIdList = new ArrayList<Long>();
 
 
                 SharedPreferences pref = getActivity().getSharedPreferences("bankIdList", getContext().MODE_PRIVATE);
                 SharedPreferences.Editor editor = pref.edit();
 
-//
-                Map<String, Long> fixedIdMap = (Map<String, Long>) pref.getAll();
-
-                editor.putLong("fixedId-"+Long.toString(item.getId() - 1),item.getId() -1);
+                editor.putLong("fixedId-" + Long.toString(item.getId() - 1), item.getId() - 1);
                 editor.commit();
-
 
 
                 v.findViewById(R.id.back).setOnClickListener(new View.OnClickListener() {
@@ -144,7 +135,7 @@ public class BankDetailFragment extends Fragment {
 
             @Override
             public void onFailure(Call<List<FixedDeposits>> call, Throwable t) {
-                Toast.makeText(getContext(),"failure",Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), "failure", Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -153,7 +144,7 @@ public class BankDetailFragment extends Fragment {
         return v;
     }
 
-    private void setupOnBackPressed(){
+    private void setupOnBackPressed() {
         requireActivity().getOnBackPressedDispatcher().addCallback(new OnBackPressedCallback(true) {
             @Override
             public void handleOnBackPressed() {
@@ -181,9 +172,6 @@ public class BankDetailFragment extends Fragment {
                 return super.onOptionsItemSelected(item);
         }
     }
-
-
-
 
 
 }

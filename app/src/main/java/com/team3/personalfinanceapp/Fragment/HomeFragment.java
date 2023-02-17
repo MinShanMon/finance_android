@@ -43,12 +43,11 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class HomeFragment extends Fragment implements SetBudgetDialogFragment.setBudgetListener{
+public class HomeFragment extends Fragment implements SetBudgetDialogFragment.setBudgetListener {
 
 
     private List<Transaction> transactions;
 
-    private SharedPreferences pref;
     private int userId;
 
     private int totalSpendingThisMonth;
@@ -73,23 +72,22 @@ public class HomeFragment extends Fragment implements SetBudgetDialogFragment.se
                              Bundle savedInstanceState) {
 
 
-        View view = inflater.inflate(R.layout.fragment_home, container, false);
+        View homeView = inflater.inflate(R.layout.fragment_home, container, false);
         moneyFormat = getString(R.string.money_format);
-        foodSpendingText = view.findViewById(R.id.food_spending);
-        transportSpendingText = view.findViewById(R.id.transport_spending);
-        othersSpendingText = view.findViewById(R.id.others_spending);
-        setBudgetButton(view);
-
-//        setSpendingForecastButton(view);
+        foodSpendingText = homeView.findViewById(R.id.food_spending);
+        transportSpendingText = homeView.findViewById(R.id.transport_spending);
+        othersSpendingText = homeView.findViewById(R.id.others_spending);
+        setBudgetButton(homeView);
         setupOnBackPressed();
 
-        return view;
+        return homeView;
     }
-    private void setupOnBackPressed(){
+
+    private void setupOnBackPressed() {
         requireActivity().getOnBackPressedDispatcher().addCallback(new OnBackPressedCallback(true) {
             @Override
             public void handleOnBackPressed() {
-                if(isEnabled()){
+                if (isEnabled()) {
 
                     setEnabled(false);
                     requireActivity().onBackPressed();
@@ -103,7 +101,7 @@ public class HomeFragment extends Fragment implements SetBudgetDialogFragment.se
         super.onStart();
 
         view = getView();
-        pref = getActivity().getSharedPreferences("user_credentials", Context.MODE_PRIVATE);
+        SharedPreferences pref = getActivity().getSharedPreferences("user_credentials", Context.MODE_PRIVATE);
         APIInterface apiInterface = APIClient.getClient().create(APIInterface.class);
         userId = pref.getInt("userid", 0);
         Call<List<Transaction>> transactionsCall = apiInterface.getTransactionsByMonth(userId,
@@ -119,7 +117,7 @@ public class HomeFragment extends Fragment implements SetBudgetDialogFragment.se
                 if (getActivity() != null) {
                     setBudgetBar(totalSpendingThisMonth);
                 }
-                setCategorySpend(getView());
+                setCategorySpend();
             }
 
             @Override
@@ -140,13 +138,13 @@ public class HomeFragment extends Fragment implements SetBudgetDialogFragment.se
                     forecast.setText("$" + String.format(view.getResources().getString(R.string.money_format), forecastAmt));
                 }
             }
+
             @Override
             public void onFailure(Call<Map<String, Float>> call, Throwable t) {
                 call.cancel();
             }
         });
     }
-
 
 
     private void setBudgetBar(int totalSpendingThisMonth) {
@@ -188,13 +186,10 @@ public class HomeFragment extends Fragment implements SetBudgetDialogFragment.se
         setBudgetBar(totalSpendingThisMonth);
     }
 
-    private void setCategorySpend(View view) {
+    private void setCategorySpend() {
 
         foodSpendingText.setText("$" + String.format(moneyFormat, getCategorySpend("food")));
-
-
         transportSpendingText.setText("$" + String.format(moneyFormat, getCategorySpend("transport")));
-
         othersSpendingText.setText("$" + String.format(moneyFormat, getCategorySpend("others")));
     }
 

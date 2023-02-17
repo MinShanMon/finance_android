@@ -42,9 +42,11 @@ import retrofit2.Response;
 public class CompareFragment extends Fragment {
     SharedPreferences pref;
     SharedPreferences prefs;
-    public  CompareFragment(){
+
+    public CompareFragment() {
 
     }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -60,30 +62,30 @@ public class CompareFragment extends Fragment {
         Map<String, Long> fixedIdMap = (Map<String, Long>) pref.getAll();
         Collection<Long> Ids = fixedIdMap.values();
 
-        List<Long>IdList = new ArrayList<Long>();
+        List<Long> IdList = new ArrayList<>();
         IdList.addAll(Ids);
-        List<FixedDeposits> fixedDepositsList =new ArrayList<FixedDeposits>();
+        List<FixedDeposits> fixedDepositsList = new ArrayList<>();
         APIclient api = new APIclient();
         fixedDeposistsServics fs = api.getRetrofit().create(fixedDeposistsServics.class);
 
-        for (Long id:IdList) {
+        for (Long id : IdList) {
 
-            if (id!=null){
+            if (id != null) {
                 prefs = this.getActivity().getSharedPreferences("user_credentials", MODE_PRIVATE);
-                Call<FixedDeposits> call = fs.getById(id+1, "Bearer "+ prefs.getString("token", ""));
+                Call<FixedDeposits> call = fs.getById(id + 1, "Bearer " + prefs.getString("token", ""));
 
                 call.enqueue(new Callback<FixedDeposits>() {
                     @SuppressLint("SetTextI18n")
                     @Override
                     public void onResponse(Call<FixedDeposits> call, Response<FixedDeposits> response) {
-                        if(!response.isSuccessful()){
-                            Toast.makeText(getContext(),"unsuccessful",Toast.LENGTH_SHORT).show();
+                        if (!response.isSuccessful()) {
+                            Toast.makeText(getContext(), "unsuccessful", Toast.LENGTH_SHORT).show();
                             return;
                         }
                         FixedDeposits result = response.body();
                         fixedDepositsList.add(result);
 
-                        if (fixedDepositsList.size()==1) {
+                        if (fixedDepositsList.size() == 1) {
                             TextView productId1 = v.findViewById(R.id.product1_id);
                             TextView bank1 = v.findViewById(R.id.product1_bank);
                             TextView tenure1 = v.findViewById(R.id.product1_tenure);
@@ -98,11 +100,10 @@ public class CompareFragment extends Fragment {
                             min1.setText(Integer.toString(result.getMinAmount()));
                             max1.setText(Integer.toString(result.getMaxAmount()));
                             interest1.setText(Double.toString(result.getInterestRate()));
-                            String[] dateDate  = result.getUpdateDate().split("-");
+                            String[] dateDate = result.getUpdateDate().split("-");
                             date1.setText(dateDate[0] + " - " + dateDate[1]);
 
-                        }
-                        else if (fixedDepositsList.size()==2) {
+                        } else if (fixedDepositsList.size() == 2) {
                             TextView productId2 = v.findViewById(R.id.product2_id);
                             TextView bank2 = v.findViewById(R.id.product2_bank);
                             TextView tenure2 = v.findViewById(R.id.product2_tenure);
@@ -117,14 +118,14 @@ public class CompareFragment extends Fragment {
                             min2.setText(Integer.toString(result.getMinAmount()));
                             max2.setText(Integer.toString(result.getMaxAmount()));
                             interest2.setText(Double.toString(result.getInterestRate()));
-                            String[] dateDate  = result.getUpdateDate().split("-");
+                            String[] dateDate = result.getUpdateDate().split("-");
                             date2.setText(dateDate[0] + " - " + dateDate[1]);
                         }
                     }
 
                     @Override
                     public void onFailure(Call<FixedDeposits> call, Throwable t) {
-                        Toast.makeText(getContext(),"unsuccessful",Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getContext(), "unsuccessful", Toast.LENGTH_SHORT).show();
                     }
                 });
             }
@@ -141,7 +142,7 @@ public class CompareFragment extends Fragment {
             forecastBtn.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    ForecastPortfolioFragment forecastPortfolioFragment=new ForecastPortfolioFragment();
+                    ForecastPortfolioFragment forecastPortfolioFragment = new ForecastPortfolioFragment();
                     commitTransaction(forecastPortfolioFragment);
                 }
             });
@@ -151,7 +152,7 @@ public class CompareFragment extends Fragment {
         return v;
     }
 
-    private void setupOnBackPressed(){
+    private void setupOnBackPressed() {
         requireActivity().getOnBackPressedDispatcher().addCallback(new OnBackPressedCallback(true) {
             @Override
             public void handleOnBackPressed() {

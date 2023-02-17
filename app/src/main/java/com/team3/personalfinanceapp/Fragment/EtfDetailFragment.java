@@ -27,7 +27,6 @@ import retrofit2.Response;
 public class EtfDetailFragment extends Fragment {
 
 
-
     public EtfDetailFragment() {
         // Required empty public constructor
     }
@@ -48,7 +47,7 @@ public class EtfDetailFragment extends Fragment {
 
 //        https://api.twelvedata.com/time_series?symbol=SPCZ&interval=1min&apikey=de25cdffc19b4f669a62fdb8ef434e09
         etfServics ed = apIclientstock.getRetrofit().create(etfServics.class);
-        Call<StockPriceData> call = ed.getetfPrice("time_series?symbol="+symbol+"&interval=1min&apikey=de25cdffc19b4f669a62fdb8ef434e09");
+        Call<StockPriceData> call = ed.getetfPrice("time_series?symbol=" + symbol + "&interval=1min&apikey=de25cdffc19b4f669a62fdb8ef434e09");
 
 
         call.enqueue(new Callback<StockPriceData>() {
@@ -66,13 +65,11 @@ public class EtfDetailFragment extends Fragment {
                 TextView volume = v.findViewById(R.id.volume);
 
                 update.setText(priceList.getDatetime());
-                open.setText(priceList.getOpen() );
-                high.setText(priceList.getHigh() );
-                low.setText(priceList.getLow() );
-                close.setText(priceList.getClose() );
-                volume.setText(priceList.getVolume() );
-
-
+                open.setText(priceList.getOpen());
+                high.setText(priceList.getHigh());
+                low.setText(priceList.getLow());
+                close.setText(priceList.getClose());
+                volume.setText(priceList.getVolume());
 
 
                 v.findViewById(R.id.link).setOnClickListener(new View.OnClickListener() {
@@ -99,10 +96,9 @@ public class EtfDetailFragment extends Fragment {
             }
 
 
-
             @Override
             public void onFailure(Call<StockPriceData> call, Throwable t) {
-                Toast.makeText(getContext(),"fail",Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), "fail", Toast.LENGTH_SHORT).show();
             }
         });
 

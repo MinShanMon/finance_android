@@ -49,7 +49,7 @@ public class EtfFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View v =  inflater.inflate(R.layout.fragment_etf, container, false);
+        View v = inflater.inflate(R.layout.fragment_etf, container, false);
 
         TransitionInflater tInflater = TransitionInflater.from(requireContext());
         setEnterTransition(tInflater.inflateTransition(R.transition.slide_right));
@@ -59,9 +59,9 @@ public class EtfFragment extends Fragment {
         progressBar.setVisibility(View.VISIBLE);
 
 
-        List<String> validEtfs = Arrays.asList("SPY","SPCZ");
+        List<String> validEtfs = Arrays.asList("SPY", "SPCZ");
 //
-          APIclientetf apIclientetf = new APIclientetf();
+        APIclientetf apIclientetf = new APIclientetf();
 //
 
         etfServics es = apIclientetf.getRetrofit().create(etfServics.class);
@@ -70,7 +70,6 @@ public class EtfFragment extends Fragment {
         call.enqueue(new Callback<EtfData>() {
             @Override
             public void onResponse(Call<EtfData> call, Response<EtfData> response) {
-
 
 
                 List<Etf> etfList = response.body().getData().stream().filter(e -> validEtfs.contains(e.getSymbol())).collect(Collectors.toList());
@@ -97,7 +96,7 @@ public class EtfFragment extends Fragment {
 
             @Override
             public void onFailure(Call<EtfData> call, Throwable t) {
-                Toast.makeText(getContext(),"failer",Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), "failer", Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -108,7 +107,7 @@ public class EtfFragment extends Fragment {
 
     }
 
-    private void setupOnBackPressed(){
+    private void setupOnBackPressed() {
         requireActivity().getOnBackPressedDispatcher().addCallback(new OnBackPressedCallback(true) {
             @Override
             public void handleOnBackPressed() {

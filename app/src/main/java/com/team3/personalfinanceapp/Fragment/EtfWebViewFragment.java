@@ -18,8 +18,7 @@ public class EtfWebViewFragment extends Fragment {
     public EtfWebViewFragment() {
         // Required empty public constructor
     }
-    private String url;
-    private WebView webView;
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -28,10 +27,10 @@ public class EtfWebViewFragment extends Fragment {
         View v = inflater.inflate(R.layout.fragment_etf_web_view, container, false);
 
 
-        String url = "https://sg.finance.yahoo.com/quote/"+getArguments().getString("symbol");
+        String url = "https://sg.finance.yahoo.com/quote/" + getArguments().getString("symbol");
 
 
-        webView = v.findViewById(R.id.web_view);
+        WebView webView = v.findViewById(R.id.web_view);
         webView.setWebViewClient(new WebViewClient());
         webView.loadUrl(url);
 

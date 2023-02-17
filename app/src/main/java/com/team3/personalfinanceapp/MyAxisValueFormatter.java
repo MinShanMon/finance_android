@@ -1,7 +1,6 @@
 package com.team3.personalfinanceapp;
 
 import com.github.mikephil.charting.components.AxisBase;
-import com.github.mikephil.charting.formatter.IAxisValueFormatter;
 import com.github.mikephil.charting.formatter.ValueFormatter;
 
 import java.text.DecimalFormat;

@@ -8,18 +8,19 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class APIclient {
     private Retrofit retrofit;
 
-    public APIclient(){
+    public APIclient() {
         initializeRetrofit();
     }
 
 
-    private void initializeRetrofit(){
-        retrofit= new Retrofit.Builder()
+    private void initializeRetrofit() {
+        retrofit = new Retrofit.Builder()
                 .baseUrl("http://10.0.2.2:8081/api/")
                 .addConverterFactory(GsonConverterFactory.create(new Gson()))
                 .build();
     }
-    public Retrofit getRetrofit(){
+
+    public Retrofit getRetrofit() {
         return retrofit;
     }
 

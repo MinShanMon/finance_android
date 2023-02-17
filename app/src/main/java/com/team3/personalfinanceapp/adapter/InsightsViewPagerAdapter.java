@@ -2,7 +2,6 @@ package com.team3.personalfinanceapp.adapter;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 
 import com.team3.personalfinanceapp.insights.CategorySpendFragment;
@@ -18,12 +17,12 @@ public class InsightsViewPagerAdapter extends FragmentStateAdapter {
     private List<Transaction> transactions;
 
     InsightsViewPagerFragment fragment;
+
     public InsightsViewPagerAdapter(@NonNull Fragment fragment, List<Transaction> transactions) {
         super(fragment);
         this.fragment = (InsightsViewPagerFragment) fragment;
         this.transactions = transactions;
     }
-
 
 
     @NonNull
@@ -35,11 +34,6 @@ public class InsightsViewPagerAdapter extends FragmentStateAdapter {
             return new CategorySpendFragment(transactions);
         }
         return new ErrorFragment();
-    }
-
-    @Override
-    public void onDetachedFromRecyclerView(@NonNull RecyclerView recyclerView) {
-        super.onDetachedFromRecyclerView(recyclerView);
     }
 
     @Override

@@ -71,7 +71,7 @@ public class StockFragment extends Fragment {
                 List<Stock> stockList = response.body().getData().stream().filter(e -> validSotck.contains(e.getSymbol())).collect(Collectors.toList());
                 progressBar.setVisibility(View.INVISIBLE);
                 ListView listView = v.findViewById(R.id.listView);
-                if (listView != null) {
+                if (listView != null && getContext() != null) {
                     listView.setAdapter(new ListAdapterStock(getContext(), stockList));
                     listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 

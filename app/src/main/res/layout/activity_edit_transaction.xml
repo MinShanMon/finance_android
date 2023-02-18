@@ -30,9 +30,9 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="100dp"
                 android:gravity="center"
                 android:text="Edit Transaction"
+                android:textSize="20sp"
                 android:textColor="@color/white" />
 
         </androidx.appcompat.widget.Toolbar>
@@ -47,7 +47,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
-        android:text="Category" />
+        android:text="Category"
+        android:textStyle="bold"
+        android:textSize="20sp"/>
 
     <RadioGroup
         android:id="@+id/edit_transaction_category"
@@ -81,6 +83,7 @@
 
 
     <com.google.android.material.textfield.TextInputLayout
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Title">
@@ -102,8 +105,10 @@
 
 
     <com.google.android.material.textfield.TextInputLayout
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
         android:hint="Description (Optional)">
 
         <com.google.android.material.textfield.TextInputEditText
@@ -115,21 +120,25 @@
     </com.google.android.material.textfield.TextInputLayout>
 
 
-    <androidx.appcompat.widget.AppCompatButton
+    <com.google.android.material.button.MaterialButton
+        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
         android:id="@+id/set_date_picker"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@color/colorLightGrey"
+        android:layout_marginTop="10dp"
         android:textColor="@color/black"
         android:text="Date"
         android:textAllCaps="false"
         android:textAlignment="viewStart"
+        app:strokeColor="#AEAEAE"
         android:paddingStart="18dp"/>
 
 
     <com.google.android.material.textfield.TextInputLayout
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
         android:hint="Amount:">
 
         <EditText
@@ -147,16 +156,24 @@
         android:textColor="@color/red"
         android:visibility="gone" />
 
-    <Button
+    <com.google.android.material.button.MaterialButton
+        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
         android:id="@+id/save_btn"
         android:layout_width="match_parent"
+        android:layout_marginTop="10dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
         android:layout_height="wrap_content"
-        android:text="Save" />
+        android:text="Save"
+        app:strokeColor="@color/purple_500"/>
 
-    <Button
+    <com.google.android.material.button.MaterialButton
+        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
         android:id="@+id/delete_btn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Delete" />
+        android:layout_margin="10dp"
+        android:text="Delete"
+        app:strokeColor="@color/purple_500"/>
 
 </LinearLayout>

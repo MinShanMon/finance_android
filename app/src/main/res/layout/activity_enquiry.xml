@@ -32,9 +32,9 @@
                 android:id="@+id/enq_form"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="100dp"
                 android:gravity="center"
                 android:text="@string/enquiry"
+                android:textSize="20sp"
                 android:textColor="@color/white" />
 
         </androidx.appcompat.widget.Toolbar>
@@ -146,12 +146,14 @@
             android:textColor="@color/red"
             android:visibility="gone"/>
 
-        <Button
+        <com.google.android.material.button.MaterialButton
+            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
             android:id="@+id/submit"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="30dp"
-            android:text="@string/submit" />
+            android:text="@string/submit"
+            app:strokeColor="@color/purple_500"/>
 
         <TextView
             android:id="@+id/error_msg"

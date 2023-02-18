@@ -32,7 +32,7 @@
                 android:id="@+id/linkbank_formtitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="100dp"
+                android:textSize="20sp"
                 android:gravity="center"
                 android:text="@string/link_bank_account"
                 android:textColor="@color/white" />
@@ -106,12 +106,14 @@
             android:textColor="@color/red"
             android:visibility="gone"/>
 
-        <Button
+        <com.google.android.material.button.MaterialButton
+            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
             android:id="@+id/submit"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="30dp"
-            android:text="@string/submit" />
+            android:text="@string/submit"
+            app:strokeColor="@color/purple_500"/>
 
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

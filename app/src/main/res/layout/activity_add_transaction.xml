@@ -32,9 +32,9 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="100dp"
                 android:gravity="center"
                 android:text="@string/add_transaction"
+                android:textSize="20sp"
                 android:textColor="@color/white" />
 
         </androidx.appcompat.widget.Toolbar>
@@ -51,8 +51,10 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
-        android:text="Category" />
+        android:layout_marginStart="8dp"
+        android:text="Category"
+        android:textStyle="bold"
+        android:textSize="20sp"/>
 
     <RadioGroup
         android:id="@+id/add_transaction_category"
@@ -85,6 +87,7 @@
     </RadioGroup>
 
     <com.google.android.material.textfield.TextInputLayout
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Title">
@@ -106,8 +109,10 @@
 
 
     <com.google.android.material.textfield.TextInputLayout
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
         android:hint="Description (Optional)">
 
         <com.google.android.material.textfield.TextInputEditText
@@ -118,24 +123,29 @@
     </com.google.android.material.textfield.TextInputLayout>
 
 
-    <androidx.appcompat.widget.AppCompatButton
+    <com.google.android.material.button.MaterialButton
+        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
         android:id="@+id/set_date_picker"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@color/colorLightGrey"
+        android:layout_marginTop="10dp"
         android:textColor="@color/black"
         android:text="Date"
         android:textAllCaps="false"
         android:textAlignment="viewStart"
+        app:strokeColor="#AEAEAE"
         android:paddingStart="18dp"/>
 
 
     <com.google.android.material.textfield.TextInputLayout
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
         android:hint="Amount">
 
         <com.google.android.material.textfield.TextInputEditText
+
             android:id="@+id/add_transaction_amount"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -151,10 +161,13 @@
 
     </com.google.android.material.textfield.TextInputLayout>
 
-    <Button
+    <com.google.android.material.button.MaterialButton
+        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
         android:id="@+id/add_btn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Add" />
+        android:layout_margin="10dp"
+        android:text="Add"
+        app:strokeColor="@color/purple_500"/>
 
 </LinearLayout>

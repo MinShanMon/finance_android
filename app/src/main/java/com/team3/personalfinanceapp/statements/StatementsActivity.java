@@ -12,6 +12,7 @@ import com.team3.personalfinanceapp.utils.BankAPIInterface;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -30,6 +31,8 @@ public class StatementsActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_statements);
+        ImageView backBtn = findViewById(R.id.img_backArrow);
+        backBtn.setOnClickListener(e -> finish());
         getAllStatementsAndDisplay();
     }
 

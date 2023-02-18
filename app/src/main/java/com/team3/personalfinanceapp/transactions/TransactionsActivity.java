@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -46,6 +47,8 @@ public class TransactionsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_transactionslist);
         linearLayout = findViewById(R.id.transactions_list_linearlayout);
+        ImageView backBtn = findViewById(R.id.img_backArrow);
+        backBtn.setOnClickListener(e -> finish());
         getAllTransactionsAndDisplay();
     }
 

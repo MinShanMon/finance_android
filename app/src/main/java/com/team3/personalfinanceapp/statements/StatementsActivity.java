@@ -37,18 +37,16 @@ public class StatementsActivity extends AppCompatActivity {
 
         SharedPreferences pref = getSharedPreferences("user_credentials", MODE_PRIVATE);
         SharedPreferences bankPref = getSharedPreferences("user_banklist", MODE_PRIVATE);
-        Set<String> bankAccountSet =
-                bankPref.getStringSet(String.valueOf(pref.getInt("userid", 0)), new HashSet<>());
+        String bankAccount =
+                bankPref.getString(String.valueOf(pref.getInt("userid", 0)), "");
 
-        if (bankAccountSet.isEmpty()) {
+        if (bankAccount.isEmpty()) {
             return;
         }
 
-        String[] bankAccts = bankAccountSet.toArray(new String[0]);
+        String[] bankDetail = bankAccount.split(":");
 
-        String[] bankDetail = bankAccts[0].split(":");
-
-        if (bankDetail.length == 0) {
+        if (bankDetail.length <= 1) {
             return;
         }
 

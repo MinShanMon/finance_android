@@ -328,17 +328,21 @@ public class ForecastPortfolioFragment extends Fragment {
         List<Entry> valsProd2 = new ArrayList<>();
         List<Entry> total = new ArrayList<>();
         Integer max = Collections.max(periods);
-        for (int i = 0; i <= max; i++) {
-            if (i < periods.get(0)) {
-                valsProd1.add(new Entry(i, -amounts.get(0)));
-            } else
-                valsProd1.add(new Entry(i, (float) (amounts.get(0) * (1 + fixedDepositsList.get(0).getInterestRate()))));
+
+        for(int i=0;i<=max;i++){
+            if(i<periods.get(0)){
+                valsProd1.add(new Entry(i,-amounts.get(0)));
+            }
+            else
+                valsProd1.add(new Entry(i, (float) (amounts.get(0)*(1+fixedDepositsList.get(0).getInterestRate()*0.01))));
         }
-        for (int i = 0; i <= max; i++) {
-            if (i < periods.get(1)) {
-                valsProd2.add(new Entry(i, -amounts.get(1)));
-            } else
-                valsProd2.add(new Entry(i, (float) (amounts.get(1) * (1 + fixedDepositsList.get(1).getInterestRate()))));
+        for(int i=0;i<=max;i++){
+            if(i<periods.get(1)){
+                valsProd2.add(new Entry(i,-amounts.get(1)));
+            }
+            else
+                valsProd2.add(new Entry(i, (float) (amounts.get(1)*(1+fixedDepositsList.get(1).getInterestRate()*0.01))));
+
         }
 
 

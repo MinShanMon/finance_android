@@ -58,7 +58,9 @@ public class VerifyAccountActivity extends AppCompatActivity {
         verify_account.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                img_backArrow.setEnabled(false);
                 verify_otp();
+
             }
         });
         txtGetVerify.setOnClickListener(new View.OnClickListener() {
@@ -66,7 +68,7 @@ public class VerifyAccountActivity extends AppCompatActivity {
             public void onClick(View v) {
                 second = 30;
                 txtGetVerify.setEnabled(false);
-                img_backArrow.setEnabled(false);
+
                 runTimer();
                 sendEmail(email);
             }
